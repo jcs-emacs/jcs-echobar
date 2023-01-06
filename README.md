@@ -1,2 +1,2 @@
 # jcs-echobar
-A echo-bar for jcs-emacs
+An echo-bar for jcs-emacs
