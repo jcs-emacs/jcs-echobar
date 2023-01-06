@@ -130,7 +130,7 @@
   (setq jcs-echobar--render (reverse jcs-echobar--render)))
 
 (defun jcs-echobar-render (&rest _)
-  "Render for echo-bar."
+  "Render the echo-bar."
   (mapconcat #'format-mode-line jcs-echobar--render ""))
 
 ;;
