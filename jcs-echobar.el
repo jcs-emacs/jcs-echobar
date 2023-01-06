@@ -48,7 +48,7 @@
     (:eval (jcs-echobar--render-time)))
   "List of item to render in echo-bar."
   :type 'list
-  :group 'jcs-modeline)
+  :group 'jcs-echobar)
 
 (defvar jcs-echobar--render nil)
 
