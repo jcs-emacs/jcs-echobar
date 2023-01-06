@@ -6,7 +6,7 @@
 ;; Maintainer: Shen, Jen-Chieh <jcs090218@gmail.com>
 ;; URL: https://github.com/jcs-emacs/jcs-echobar
 ;; Version: 0.1.0
-;; Package-Requires: ((emacs "26.1") (echo-bar "1.0.0"))
+;; Package-Requires: ((emacs "26.1") (echo-bar "1.0.0") (indent-control "0.1.0") (show-eol "0.1.0"))
 ;; Keywords: faces echo-bar
 
 ;; This file is not part of GNU Emacs.
