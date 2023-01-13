@@ -17,5 +17,6 @@
 (depends-on "echo-bar")
 (depends-on "indent-control")
 (depends-on "show-eol")
+(depends-on "keycast")
 
 (setq network-security-level 'low)  ; see https://github.com/jcs090218/setup-emacs-windows/issues/156#issuecomment-932956432
