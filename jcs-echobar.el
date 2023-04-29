@@ -123,7 +123,7 @@
 
 (defun jcs-echobar--buffer-spaces-or-tabs ()
   "Check if buffer using spaces or tabs."
-  (if (= (how-many "^\t" (point-min) (point-max)) 0) "SPC" "TAB"))
+  (if indent-tabs-mode "TAB" "SPC"))
 
 ;;
 ;; (@* "Core" )
