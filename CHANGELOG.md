@@ -8,4 +8,4 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ## 0.1.0 (Unreleased)
 > Released N/A
 
-- Initial release
+* Initial release
