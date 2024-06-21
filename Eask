@@ -13,7 +13,7 @@
 (source "jcs-elpa")
 (source "melpa")
 
-(depends-on "emacs" "27.1")
+(depends-on "emacs" "29.1")
 (depends-on "echo-bar")
 (depends-on "indent-control")
 (depends-on "show-eol")
