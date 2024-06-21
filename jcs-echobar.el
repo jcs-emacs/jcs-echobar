@@ -6,7 +6,7 @@
 ;; Maintainer: Shen, Jen-Chieh <jcs090218@gmail.com>
 ;; URL: https://github.com/jcs-emacs/jcs-echobar
 ;; Version: 0.1.0
-;; Package-Requires: ((emacs "26.1") (echo-bar "1.0.0") (indent-control "0.1.0") (show-eol "0.1.0") (keycast "1.2.0"))
+;; Package-Requires: ((emacs "29.1") (echo-bar "1.0.0") (indent-control "0.1.0") (show-eol "0.1.0") (keycast "1.2.0"))
 ;; Keywords: faces echo-bar
 
 ;; This file is not part of GNU Emacs.
@@ -58,13 +58,6 @@
   :group 'jcs-echobar)
 
 ;;
-;; (@* "Externals" )
-;;
-
-(declare-function string-pixel-width "subr-x.el")   ; TODO: remove this after 29.1
-(declare-function shr-string-pixel-width "shr.el")  ; TODO: remove this after 29.1
-
-;;
 ;; (@* "Entry" )
 ;;
 
@@ -106,18 +99,10 @@
 ;; (@* "Util" )
 ;;
 
-;; TODO: Use function `string-pixel-width' after 29.1
-(defun jcs-echobar--string-pixel-width (str)
-  "Return the width of STR in pixels."
-  (if (fboundp #'string-pixel-width)
-      (string-pixel-width str)
-    (require 'shr)
-    (shr-string-pixel-width str)))
-
 (defun jcs-echobar--str-len (str)
   "Calculate STR in pixel width."
   (let ((width (frame-char-width))
-        (len (jcs-echobar--string-pixel-width str)))
+        (len (string-pixel-width str)))
     (+ (/ len width)
        (if (zerop (% len width)) 0 1))))  ; add one if exceeed
 
@@ -131,6 +116,11 @@
 
 (defvar jcs-echobar--render nil)
 
+(defun jcs-echobar--render-width ()
+  "Return the render width."
+  (let ((full-width (window-width (minibuffer-window))))
+    (* full-width 0.5)))
+
 (defun jcs-echobar--window-resize (&rest _)
   "Window resize hook."
   (setq jcs-echobar--render nil)  ; reset
@@ -139,7 +129,7 @@
       (let* ((format (format-mode-line item))
              (width (jcs-echobar--str-len format))
              (new-width (+ current-width width)))
-        (when (<= new-width (window-width (minibuffer-window)))
+        (when (<= new-width (jcs-echobar--render-width))
           (setq current-width new-width)
           (push item jcs-echobar--render)))))
   (setq jcs-echobar--render (reverse jcs-echobar--render)))
