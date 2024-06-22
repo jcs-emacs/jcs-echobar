@@ -70,6 +70,7 @@
     (add-hook 'post-command-hook #'keycast--update t)
     (add-hook 'minibuffer-exit-hook #'keycast--minibuffer-exit t)
     (advice-add 'keycast--update :after #'jcs-echobar--keycast-update))
+  (add-hook 'pre-command-hook #'jcs-echobar--pre-command)
   (add-hook 'window-size-change-functions #'jcs-echobar--window-resize)
   (jcs-echobar--window-resize)  ; call it manually once
   (setq jcs-echobar--default-function echo-bar-function)
@@ -82,6 +83,7 @@
     (remove-hook 'post-command-hook #'keycast--update)
     (remove-hook 'minibuffer-exit-hook #'keycast--minibuffer-exit)
     (advice-remove 'keycast--update #'jcs-echobar--keycast-update))
+  (remove-hook 'pre-command-hook #'jcs-echobar--pre-command)
   (remove-hook 'window-size-change-functions #'jcs-echobar--window-resize)
   (setq echo-bar-function jcs-echobar--default-function)
   (echo-bar-mode -1))
@@ -113,6 +115,10 @@
 ;;
 ;; (@* "Core" )
 ;;
+
+(defun jcs-echobar--pre-command ()
+  "Pre command hook."
+  (message nil))  ; Avoid `echo-bar' mess up window config!
 
 (defvar jcs-echobar--render nil)
 
