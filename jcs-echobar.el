@@ -70,7 +70,6 @@
     (add-hook 'post-command-hook #'keycast--update t)
     (add-hook 'minibuffer-exit-hook #'keycast--minibuffer-exit t)
     (advice-add 'keycast--update :after #'jcs-echobar--keycast-update))
-  (add-hook 'pre-command-hook #'jcs-echo-bar--pre-command)
   (add-hook 'window-size-change-functions #'jcs-echobar--window-resize)
   (jcs-echobar--window-resize)  ; call it manually once
   (setq jcs-echobar--default-function echo-bar-function)
@@ -83,7 +82,6 @@
     (remove-hook 'post-command-hook #'keycast--update)
     (remove-hook 'minibuffer-exit-hook #'keycast--minibuffer-exit)
     (advice-remove 'keycast--update #'jcs-echobar--keycast-update))
-  (remove-hook 'pre-command-hook #'jcs-echo-bar--pre-command)
   (remove-hook 'window-size-change-functions #'jcs-echobar--window-resize)
   (setq echo-bar-function jcs-echobar--default-function)
   (echo-bar-mode -1))
@@ -115,14 +113,6 @@
 ;;
 ;; (@* "Core" )
 ;;
-
-(defun jcs-echo-bar--pre-command ()
-  "Pre command hook."
-  (when echo-bar-mode
-    (dolist (ov echo-bar-overlays)
-      (when-let* ((str (overlay-get ov 'after-string))
-                  ((string-match-p "\n" str)))  ; if multilinek
-        (message nil)))))
 
 (defvar jcs-echobar--render nil)
 
