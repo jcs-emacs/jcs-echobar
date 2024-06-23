@@ -121,7 +121,7 @@
   (when echo-bar-mode
     (dolist (ov echo-bar-overlays)
       (when-let* ((str (overlay-get ov 'after-string))
-                  (_ (string-match-p "\n" str)))  ; if multilinek
+                  ((string-match-p "\n" str)))  ; if multilinek
         (message nil)))))
 
 (defvar jcs-echobar--render nil)
