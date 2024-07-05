@@ -136,7 +136,7 @@
 
 (defun jcs-echobar-render (&rest _)
   "Render the echo-bar."
-  (mapconcat #'format-mode-line jcs-echobar--render ""))
+  (string-trim (mapconcat #'format-mode-line jcs-echobar--render "")))
 
 (defun jcs-echobar--keycast-update (&rest _)
   "Exection after `keycast-update' function."
