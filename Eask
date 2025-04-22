@@ -1,3 +1,5 @@
+;; -*- mode: eask; lexical-binding: t -*-
+
 (package "jcs-echobar"
          "0.1.0"
          "An echo-bar for jcs-emacs")
