@@ -208,7 +208,7 @@
 (defun jcs-echobar--render-keycast ()
   "Render `keycast'."
   (when (featurep 'keycast)
-    (concat (propertize (keycast--format jcs-echobar-keycast-format)
+    (concat (propertize (elenv-2str (keycast--format jcs-echobar-keycast-format))
                         'face 'jcs-echobar-default)
             "   ")))
 
