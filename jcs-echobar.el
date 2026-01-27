@@ -168,12 +168,14 @@
    (propertize (elenv-2str (jcs-echobar--buffer-spaces-or-tabs))
                'face 'jcs-echobar-default
                'mouse-face 'mode-line-highlight
+               'help-echo "Spaces or Tabs"
                'local-map (jcs-echobar--with-mouse-click
                             (indent-tabs-mode (if indent-tabs-mode -1 1))))
    " "
    (propertize (elenv-2str (indent-control-get-indent-level-by-mode))
                'face 'jcs-echobar-default
                'mouse-face 'mode-line-highlight
+               'help-echo "Indent size"
                'local-map (jcs-echobar--with-mouse-click
                             (call-interactively #'indent-control-set-indent-level-by-mode)))
    "  "))
@@ -184,6 +186,7 @@
    (propertize (elenv-2str buffer-file-coding-system)
                'face 'jcs-echobar-default
                'mouse-face 'mode-line-highlight
+               'help-echo "File coding system"
                'local-map (jcs-echobar--with-mouse-click
                             (call-interactively #'set-buffer-file-coding-system)))
    "  "))
@@ -194,6 +197,7 @@
    (propertize (elenv-2str (show-eol-get-eol-mark-by-system))
                'face 'jcs-echobar-default
                'mouse-face 'mode-line-highlight
+               'help-echo "End of line"
                'local-map (jcs-echobar--with-mouse-click
                             (show-eol-mode (if show-eol-mode -1 1))))
    "  "))
@@ -209,7 +213,8 @@
   "Render `keycast'."
   (when (featurep 'keycast)
     (concat (propertize (elenv-2str (keycast--format jcs-echobar-keycast-format))
-                        'face 'jcs-echobar-default)
+                        'face 'jcs-echobar-default
+                        'help-echo "Key information")
             "   ")))
 
 (provide 'jcs-echobar)
