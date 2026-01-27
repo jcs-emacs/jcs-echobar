@@ -11,11 +11,12 @@
 
 (script "test" "echo \"Error: no test specified\" && exit 1")
 
-(source "gnu")
-(source "jcs-elpa")
-(source "melpa")
+(source 'gnu)
+(source 'jcs-elpa)
+(source 'melpa)
 
 (depends-on "emacs" "29.1")
+(depends-on "elenv")
 (depends-on "echo-bar")
 (depends-on "indent-control")
 (depends-on "show-eol")
