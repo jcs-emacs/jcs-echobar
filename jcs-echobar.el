@@ -118,12 +118,18 @@
   "Check if buffer using spaces or tabs."
   (if indent-tabs-mode "TAB" "SPC"))
 
-(defmacro jcs-echobar--with-mouse-click (&rest body)
+(defun jcs-echobar--keymap-down-mouse-1 (def)
+  "Return the mode-line keymap with bindings DEF key."
+  (let ((map (make-sparse-keymap)))
+    (define-key map [down-mouse-1] def)
+    map))
+
+(defmacro jcs-echobar--with-mouse-1 (&rest body)
   "Execute BODY with in the mouse click event."
   (declare (indent 0))
-  `(let ((map (make-sparse-keymap)))
-     (define-key map [down-mouse-1] (lambda (&rest _) (interactive) ,@body))
-     map))
+  `(jcs-echobar--keymap-down-mouse-1 (lambda (&rest _)
+                                       (interactive)
+                                       ,@body)))
 
 ;;
 ;; (@* "Core" )
@@ -168,16 +174,16 @@
    (propertize (elenv-2str (jcs-echobar--buffer-spaces-or-tabs))
                'face 'jcs-echobar-default
                'mouse-face 'mode-line-highlight
-               'help-echo "Spaces or Tabs"
-               'local-map (jcs-echobar--with-mouse-click
-                            (indent-tabs-mode (if indent-tabs-mode -1 1))))
+               'help-echo "Select Spaces or Tabs"
+               'local-map
+               (jcs-echobar--keymap-down-mouse-1 #'indent-tabs-mode))
    " "
    (propertize (elenv-2str (indent-control-get-indent-level-by-mode))
                'face 'jcs-echobar-default
                'mouse-face 'mode-line-highlight
-               'help-echo "Indent size"
-               'local-map (jcs-echobar--with-mouse-click
-                            (call-interactively #'indent-control-set-indent-level-by-mode)))
+               'help-echo "Select indentation"
+               'local-map
+               (jcs-echobar--keymap-down-mouse-1 #'indent-control-set-indent-level-by-mode))
    "  "))
 
 (defun jcs-echobar--render-coding-system ()
@@ -186,9 +192,9 @@
    (propertize (elenv-2str buffer-file-coding-system)
                'face 'jcs-echobar-default
                'mouse-face 'mode-line-highlight
-               'help-echo "File coding system"
-               'local-map (jcs-echobar--with-mouse-click
-                            (call-interactively #'set-buffer-file-coding-system)))
+               'help-echo "Select Encoding"
+               'local-map
+               (jcs-echobar--keymap-down-mouse-1 #'set-buffer-file-coding-system))
    "  "))
 
 (defun jcs-echobar--render-eol ()
@@ -197,16 +203,15 @@
    (propertize (elenv-2str (show-eol-get-eol-mark-by-system))
                'face 'jcs-echobar-default
                'mouse-face 'mode-line-highlight
-               'help-echo "End of line"
-               'local-map (jcs-echobar--with-mouse-click
-                            (show-eol-mode (if show-eol-mode -1 1))))
+               'help-echo "Select End of Line Sequence"
+               'local-map
+               (jcs-echobar--keymap-down-mouse-1 #'show-eol-mode))
    "  "))
 
 (defun jcs-echobar--render-time ()
   "Render time."
   (propertize (format-mode-line display-time-string)
               'face 'jcs-echobar-default
-              'mouse-face 'mode-line-highlight
               'help-echo (format-time-string "%a %b %e, %Y")))
 
 (defun jcs-echobar--render-keycast ()
